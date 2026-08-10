@@ -1,0 +1,16 @@
+{
+  "lines_captured": 132,
+  "T1_bit_exact": "20/20 fields match Python golden",
+  "T1_failures": [],
+  "T2_cdm_recovery_cycles": 14286,
+  "T2_cdm_recovery_us": 892.88,
+  "T2_fir8_cycles": 548,
+  "T2_ckpt_slower_than_cdm_x": 295.7,
+  "T3_deterministic": "1",
+  "T4_boots": 51,
+  "T4_all_tokens_identical": true,
+  "T4_token_matches_golden": true,
+  "T4_all_g_identical": true,
+  "T4_g_matches_golden": true,
+  "tests_done_seen": true
+}
