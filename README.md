@@ -1,89 +1,38 @@
-![ZeroADC](https://img.shields.io/badge/ZeroADC-Asynchronous%20Delta%20Compute-dc2626?style=for-the-badge)
-![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+![ZeroADC — Analog event gating & deterministic recovery](docs/visuals/header.png)
 
-**Asynchronous Delta Compute — event-driven inference for energy-constrained hardware.**
+# ZeroADC
 
----
+Research artifacts for a batteryless event-intelligence node combining an analog Zero-ADC front end with Collatz Deterministic Modelling (CDM). Includes simulation code, recorded results and MCU-related artifacts.
 
-## 📊 Results
+**[Source guide](#source-guide)** · **[Getting started](#getting-started)** · **[Scope & limitations](#scope--limitations)**
 
-| Metric | Value |
-|--------|-------|
-| Energy reduction | 3.2× vs synchronous |
-| Latency @ P99 | 8.4 m |
-| Accuracy retention | 97.1% baseline |
+## Preview
 
-![Architecture](figs/fc6_architecture.png)
-*Figure 1: ZeroADC asynchronous pipeline architecture.*
+[![Existing combined-node architecture figure. Consult the dossier for assumptions and evidence.](figs/fc6_architecture.png)](figs/fc6_architecture.png)
 
-![Headline](figs/fc1_headline.png)
-*Figure 2: Headline energy-accuracy tradeoff.*
+Existing combined-node architecture figure. Consult the dossier for assumptions and evidence.
 
-![Event rate](figs/fc2_eventrate.png)
-*Figure 3: Event rate vs workload.*
+[Recorded result figures](figs) · [Raw results](combined_results.json) · [Validation dossier](VALIDATION_DOSSIER.md)
 
-![Brownout](figs/fc3_brownout.png)
-*Figure 4: Brownout resilience characterization.*
+## Source guide
 
-![Processing time](figs/fc4_proctime.png)
-*Figure 5: Per-event processing time distribution.*
+[![Repository components and their source paths](docs/visuals/repository-guide.png)](docs/visuals/repository-guide.png)
 
-![State cost](figs/fc5_statecost.png)
-*Figure 6: Memory state transition cost.*
+| Component | Open source | Purpose |
+| :-- | :-- | :-- |
+| Simulation | [`combined_engine.py`](combined_engine.py) | Compare polling/gating and recovery strategies. |
+| Test campaign | [`run_combined_tests.py`](run_combined_tests.py) | Simulation campaign entry point. |
+| Results | [`combined_results.json`](combined_results.json) | Recorded numerical outputs. |
+| Validation record | [`VALIDATION_DOSSIER.md`](VALIDATION_DOSSIER.md) | Existing research evidence and conditions. |
 
----
+## Getting started
 
-## 🏗️ Architecture
+Use the linked source files and project documents above as the entry points. Review the prerequisites and limitations below before execution.
 
-```mermaid
-graph TB
-    S[Sensor<br/>Event Stream] --> PF[Pre-Filter<br/>Delta Threshold]
-    PF --> AD[Asynchronous<br/>Dispatcher]
-    AD --> P[PE Array<br/>Spike-driven]
-    P --> AG[Adder<br/>Tree]
-    AG --> O[Output<br/>Reconstruction]
-    R[(State<br/>Memory)] --> P
-    R --> AG
-```
+## Scope & limitations
+
+Read the dossier, model assumptions and raw results together. Simulation, emulation and hardware evidence are different categories. This documentation update did not rerun the campaign or validate headline performance claims.
 
 ---
 
-## ✨ Features
-
-- **Event-driven dispatch** — compute only on significant input changes
-- **Delta thresholding** — configurable sparsity-accuracy tradeoff
-- **Brownout-aware** — graceful degradation under energy constraints
-- **Cycle-approximate simulation** — fast design-space exploration
-
----
-
-## 🚀 Quick Start
-
-```bash
-pip install -r requirements.txt
-python src/main.py --config configs/zero_adc.yaml
-```
-
----
-
-## 📁 Project Structure
-
-```
-ZeroADC/
-├── figs/                          # All result figures (13 plots)
-├── configs/                       # Experiment configurations
-├── src/
-│   ├── main.py                    # Entry point
-│   ├── core/                      # Delta compute core
-│   ├── sim/                       # Cycle-approximate simulator
-│   └── utils/                     # Logging, metrics, plots
-├── requirements.txt
-└── README.md
-```
-
----
-
-## 📄 License
-
-MIT © Md Sadman Bin Masud
+[Visual asset sources and presentation notes](docs/visuals/README.md)
